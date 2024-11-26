@@ -1,0 +1,12 @@
+.input_error {
+    background-color: rgb(255, 127, 95);
+}
+
+.form.block {
+    margin-top: 20px;
+}
+
+img.table_img {
+    width: 100%;
+    height: 70px;
+}
