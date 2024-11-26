@@ -1,17 +1,17 @@
 <?php
 // DB CONNECTION
-include('db_connection.php');
+require_once('../util/db_connection.php');
 
 // CONSTANTS
-include('constants.php');
+require_once('../util/constants.php');
 
 // Functions
-include('functions.php');
+require_once('../util/functions.php');
 
 session_start();
 
 // Начало вывода верстки ====================================
-echo '<link rel="stylesheet" href="profile.css"/>';
+echo '<link rel="stylesheet" href="../style/profile.css"/>';
 
 $user_id = $_GET['user_id'];
 
@@ -47,8 +47,8 @@ echo '<div class="profile-container">' .
             '<p><strong>Дата рождения:</strong> ' . $user['birth'] . '</p>' .
             '<p><strong>Логин:</strong> ' . $user['login'] . '</p>' .
             '<p><strong>Город:</strong> ' . $user['name'] . '</p>' .
-            create_link_button('chat.php?id_to=' . $user['user_id'], 'Перейти в диалог') .
-            create_link_button('/atkachev/01.php', 'На главную') .
+            create_link_button(chat_pointer($user['user_id']), 'Перейти в диалог') .
+            create_link_button($welcome_page_path, 'На главную') .
         '</div>' .
     '</div>';
 // отображение аватарки фио и тд

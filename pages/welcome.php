@@ -1,24 +1,20 @@
 <?php
-include('db_connection.php');
+require('../util/db_connection.php');
 
 // CONSTANTS
-include('constants.php');
+require('../util/constants.php');
 
 // Functions
-include('functions.php');
+require('../util/functions.php');
 
 // Начало вывода верстки ====================================
-echo '<link rel="stylesheet" href="01.css"/>';
+echo '<link rel="stylesheet" href="../style/welcome.css"/>';
 
-include('login.php');
+require('../pages/login.php');
 
 if ($_GET['id_to'] != '') {
-    include('chat.php');
+    require_once('../pages/chat.php');
 }
-
-// echo '<pre>';
-// echo print_r($files);
-// echo '</pre>';
 
 // echo '<pre>';
 // echo print_r($_POST);

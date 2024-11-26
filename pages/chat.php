@@ -1,14 +1,14 @@
 <?php
 // DB CONNECTION
-include('db_connection.php');
+require_once('../util/db_connection.php');
 // CONSTANTS
-include('constants.php');
+require_once('../util/constants.php');
 // Functions
-include('functions.php');
+require_once('../util/functions.php');
 
 session_start();
 
-echo '<link rel="stylesheet" href="chat.css"/>';
+echo '<link rel="stylesheet" href="../style/chat.css"/>';
 
 // echo '<pre>';
 // echo print_r($_POST);
@@ -16,7 +16,7 @@ echo '<link rel="stylesheet" href="chat.css"/>';
 
 $id_from = $_SESSION['id_user'];
 if ($id_from != '') {
-    echo create_simple_post_button('home', '/atkachev/01.php', 'На главную');
+    echo create_link_button('../pages/welcome.php', 'На главную');
 
     // echo '<pre>';
     // echo print_r($_GET);
