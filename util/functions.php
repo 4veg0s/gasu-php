@@ -39,7 +39,7 @@ function create_simple_post_button($button_name, $action, $value) {
 
 function create_link_button($link, $button_caption) {
     return '<a href="' . $link . '">' .
-    '<input type="button" value="' . $button_caption . '">' .
+    '<input type="button" value="' . $button_caption . '" class="common-button">' .
     '</a>';
 }
 
