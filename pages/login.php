@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login1'])) {
         $input_error = $input_error_class;
     } else {
         $_SESSION['id_user'] = $result['id'];
-        echo 'Вы вошли как ' . $result['F'] . ' ' . $result['I'] . '<br><br>';
+        // echo 'Вы вошли как ' . $result['F'] . ' ' . $result['I'] . '<br><br>';
         $logged_in = 1;
 
         // Выполнить редирект после успешного логина
@@ -33,11 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login1'])) {
 
 if ($_SESSION['id_user'] != '') {
     $id_user = $_SESSION['id_user'];
-    $sql_select_user = "SELECT * FROM user WHERE id = '" . $id_user . "'";
+    $sql_select_user = 'SELECT 
+    user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, user.status, user.role
+    FROM user
+        left join city on user.id_city = city.id
+        having user_id = ' . $id_user;
+        // "SELECT * FROM user WHERE id = '" . $id_user . "'";
     $user_info = $conn->query($sql_select_user)->fetch_assoc();
     if ($user_info == '') {
         echo 'Ошибка';
     } else {
+        echo '<div class="container">'; // закрывается в welcome.php
+
         $files = scandir($file_destination_path);
         $img_file = '';
         foreach ($files as $file) {
@@ -49,6 +56,7 @@ if ($_SESSION['id_user'] != '') {
             $img_file = $placeholder_image_name;
         }
         $img_route = $appserv_route_dir . '/' . $img_file;
+
         echo '<div class="userdata_block">
                 <table border=1>' . 
                     '<tr>' .
@@ -74,17 +82,21 @@ if ($_SESSION['id_user'] != '') {
                     '<td>' . $user_info['login'] . '</td>' . 
                     // '<td>' . $user_info['password'] . '</td>' . 
                     '<td>' . $user_info['registration'] . '</td>' . 
-                    '<td>' . '<a href="https://yandex.ru/maps/?ll=' . $row['lng'] . ',' . $row['lat'] . '&z=10" target="_blank">' . $row['name'] . '</a>' . '</td>' . 
+                    '<td>' . $user_info['name'] . '</td>' . 
                     '<td>' . $user_info['status'] . '</td>' . 
                     '<td>' . $user_info['role'] . '</td>' . 
                     '<td>' . profile_link($user_info['id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
                 '</tr>';
         echo '</table>
         </div>';
+
+        // echo '</div>';  // закрытие container в welcome.php
     }
 }
 
 if ($logged_in != 1) {
+    echo '<div class="container log-reg">';
+
     echo '<div class="form login_block active" id="loginForm">
     <h1><center>Вход</center></h1>
     <form method="POST" action="/atkachev/pages/welcome.php" name="myForm" id="myForm">';
@@ -98,8 +110,10 @@ if ($logged_in != 1) {
         '<input type="button" class="toggle-btn" onclick="toggleForms(`registerForm`)" value="Зарегистрироваться">' .
     '</form>' .
     '</div>';
+
+    // echo '</div>';  // закрытие container log-reg
 } else {
-    echo '<a href="?act=logout">Выйти</a>' . '<br><br>';
+    echo create_link_button('../pages/welcome.php?act=logout', 'Выйти'); // '<a href="?act=logout">Выйти</a>' . '<br><br>';
 }
 
 // echo '<pre>';

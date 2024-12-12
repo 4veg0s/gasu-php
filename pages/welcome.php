@@ -10,8 +10,6 @@ require('../util/functions.php');
 // Начало вывода верстки ====================================
 echo '<link rel="stylesheet" href="../style/welcome.css"/>';
 
-echo '<div class="container">';
-
 $input_error_class = 'input_error';     // класс ошибки ввода для подсветки красным
 
 require('../pages/login.php');
@@ -100,6 +98,8 @@ if (isset($_POST['mySubmit'])) {
 }
 
 if ($logged_in == 1) {
+    // echo '<div class="container">';  // открывается в login.php
+
     $sql = 'SELECT 
     user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, user.status, user.role
     FROM user
@@ -165,6 +165,8 @@ if ($logged_in == 1) {
     } else {
         echo '0 results';
     }
+
+    echo '</div>';  // закрытие container из login.php
 } else {
     $sql_select_all_from_city = 'select * from city';
     $result_cities = $conn->query($sql_select_all_from_city);
@@ -177,6 +179,8 @@ if ($logged_in == 1) {
         }
     }
     
+    // echo '<div class="container log-reg">';
+
     echo '<div class="form block" id="registerForm">
     <h1><center>Регистрация</center></h1>
     <form enctype="multipart/form-data" method="POST" href="" name="myForm" id="myForm">';
@@ -223,8 +227,9 @@ if ($logged_in == 1) {
         '</form>' . 
         '</div>';
 
+        echo '</div>';  // закрытие container log-reg
+
         
-    echo '</div>';  // закрытие container
     echo "<script>
         // Читаем сохраненное состояние из localStorage
         const activeForm = localStorage.getItem('activeForm') || 'loginForm'; // По умолчанию login
