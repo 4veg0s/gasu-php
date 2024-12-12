@@ -81,13 +81,16 @@ if ($_SESSION['id_user'] != '') {
 }
 
 if ($logged_in != 1) {
-    echo '<div class="form login_block">
+    echo '<div class="form login_block active" id="loginForm">
+    <h1><center>Вход</center></h1>
     <form method="POST" action="/atkachev/pages/welcome.php" name="myForm" id="myForm">' .
         '<input type="text" name="login1" title="Введите логин" placeholder="Логин"><br>' .
         '<input type="password" name="password1" title="Введите пароль" placeholder="Пароль"><br>' .
         '<input type="submit" name="mySubmitLogin" value="Войти">' .
-    '</form>
-    </div>';
+        
+        '<input type="button" class="toggle-btn" onclick="toggleForms(`registerForm`)" value="Зарегистрироваться">' .
+    '</form>' .
+    '</div>';
 } else {
     echo '<a href="?act=logout">Выйти</a>' . '<br><br>';
 }

@@ -10,6 +10,8 @@ require('../util/functions.php');
 // Начало вывода верстки ====================================
 echo '<link rel="stylesheet" href="../style/welcome.css"/>';
 
+echo '<div class="container">';
+
 require('../pages/login.php');
 
 if ($_GET['id_to'] != '') {
@@ -165,8 +167,9 @@ if ($logged_in == 1) {
             $select_tag_str = $select_tag_str . '<option value="' . $cities[$i]['id'] . '">' . $cities[$i]['name'] . '</option>';
         }
     }
-    echo 'Зарегистрироваться<br>';
-    echo '<div class="form block">
+    
+    echo '<div class="form block" id="registerForm">
+    <h1><center>Регистрация</center></h1>
     <form enctype="multipart/form-data" method="POST" href="" name="myForm" id="myForm">' .
             '<input type="file" name="avatar" title="Загрузите изображение для аватарки">' . '<br>' .
             '<input type="text" name="F" title="Введите фамилию" value="' . $post_saver['F'] . '" class="' . $input_error['F'] . '" placeholder="Фамилия"><br>' .
@@ -181,9 +184,20 @@ if ($logged_in == 1) {
             '<input type="text" name="login" title="Введите логин" value="' . $post_saver['login'] . '" class="' . $input_error['login'] . '" placeholder="Логин"><br>' .
             '<input type="password" name="password" title="Введите пароль" value="' . $post_saver['password'] . '" class="' . $input_error['password'] . '" placeholder="Пароль"><br>' .
             '<input type="password" name="password_repeated" title="Повторите введенный пороль" value="' . '' . '" class="' . $input_error['password_repeated'] . '" placeholder="Повторите пароль"><br>' .
-            '<input type="submit" name="mySubmit" value="Добавить">' .
-        '</form>
-        </div>';
+            '<input type="submit" name="mySubmit" value="Зарегистрироваться">' .
+            
+            '<input type="button" class="toggle-btn" onclick="toggleForms(`loginForm`)" value="Вернуться к авторизации">' .
+        '</form>' . 
+        '</div>';
+
+        
+    echo '</div>';  // закрытие container
+    echo "<script>
+        function toggleForms(formId) {
+            document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+            document.getElementById(formId).classList.add('active');
+        }
+    </script>";
 }
 
 // закрытие подключения
