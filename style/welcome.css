@@ -120,3 +120,21 @@ a:hover {
     font-size: 0.9em;
     margin-top: 1px;
 }
+
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover {
+    transition: all 0.3s ease;
+    background-color: #f0f8ff; /* Светло-голубой фон */
+    border-color: #007acc;    /* Синяя рамка */
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.5); /* Легкая подсветка */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    background-color: #e6f7ff; /* Еще более светлый фон при фокусе */
+    border-color: #005bb5;    /* Темно-синяя рамка */
+    box-shadow: 0 0 8px rgba(0, 91, 181, 0.7); /* Увеличенная подсветка */
+    outline: none;
+}
