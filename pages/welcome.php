@@ -29,38 +29,47 @@ $input_error_class = 'input_error';
 
 if (isset($_POST['mySubmit'])) {
     $input_error = [];
+    $error_messages = [];
     $post_saver = $_POST;
     $err = '';
     if ($_POST['F'] == '') {
         $err = $err . 'Не введена фамилия<br>';
+        $error_messages['F'] = 'Не введена фамилия';
         $input_error['F'] = $input_error_class;
     }
     if ($_POST['I'] == '') {
         $err = $err . 'Не введено имя<br>';
+        $error_messages['I'] = 'Не введено имя';
         $input_error['I'] = $input_error_class;
     }
     if ($_POST['email'] == '') {
         $err = $err . 'Не введен Email<br>';
+        $error_messages['email'] = 'Не введен Email';
         $input_error['email'] = $input_error_class;
     }
     if ($_POST['birth'] == '') {
         $err = $err . 'Не введена дата рождения<br>';
+        $error_messages['birth'] = 'Не введена дата рождения';
         $input_error['birth'] = $input_error_class;
     }
     if ($_POST['login'] == '') {
         $err = $err . 'Не введен логин<br>';
+        $error_messages['login'] = 'Не введен логин';
         $input_error['login'] = $input_error_class;
     }
     if ($_POST['password'] == '') {
         $err = $err . 'Не введен пароль<br>';
+        $error_messages['password'] = 'Не введен пароль';
         $input_error['password'] = $input_error_class;
     }
     if ($_POST['id_city'] == '' || $_POST['id_city'] == 'Город') {
         $err = $err . 'Не введен город<br>';
+        $error_messages['id_city'] = 'Не выбран город';
         $input_error['id_city'] = $input_error_class;
     }
     if ($_POST['password'] != $_POST['password_repeated']) {
         $err = $err . 'Пароли не совпадают<br>';
+        $error_messages['password_repeated'] = 'Пароли не совпадают';
         $input_error['password_repeated'] = $input_error_class;
     }
     if ($err == '') {
@@ -86,7 +95,7 @@ if (isset($_POST['mySubmit'])) {
         $conn->query($str);
         $post_saver = '';
     } else {
-        echo $err;
+        //echo $err;
     }
 }
 
@@ -109,7 +118,7 @@ if ($logged_in == 1) {
                 '<th>Email</th>' .
                 '<th>Дата рождения</th>' .
                 '<th>Логин</th>' .
-                '<th>Пароль</th>' .
+                //'<th>Пароль</th>' .
                 '<th>Время регистрации</th>' .
                 '<th>Город</th>' .
                 '<th>Статус</th>' .
@@ -131,7 +140,7 @@ if ($logged_in == 1) {
             }
             $img_route = $appserv_route_dir . '/' . $img_file;
             $profile_link = profile_link($row['user_id'], 'Профиль');
-            $chat_link = chat_link($row['user_id'], 'Диалог');
+            $chat_link = chat_link($row['user_id'], 'Написать');
             // echo '<pre>';
             // echo print_r($row);
             // echo '</pre>';
@@ -142,7 +151,7 @@ if ($logged_in == 1) {
                     '<td>' . $row['email'] . '</td>' . 
                     '<td>' . $row['birth'] . '</td>' . 
                     '<td>' . $row['login'] . '</td>' . 
-                    '<td>' . $row['password'] . '</td>' . 
+                    //'<td>' . $row['password'] . '</td>' . 
                     '<td>' . $row['registration'] . '</td>' . 
                     '<td>' . '<a href="https://yandex.ru/maps/?ll=' . $row['lng'] . ',' . $row['lat'] . '&z=10" target="_blank">' . $row['name'] . '</a>' . '</td>' . 
                     '<td>' . $row['status'] . '</td>' . 
@@ -164,38 +173,68 @@ if ($logged_in == 1) {
         $cities = [];
         for ($i = 0; $i < $result_cities->num_rows; $i++) {
             $cities[$i] = $result_cities->fetch_assoc();
-            $select_tag_str = $select_tag_str . '<option value="' . $cities[$i]['id'] . '">' . $cities[$i]['name'] . '</option>';
+            $select_tag_str = $select_tag_str . '<option value="' . $cities[$i]['id'] . '"' . ($cities[$i]['id'] == $post_saver['id_city'] ? 'selected' : '') . '>' . $cities[$i]['name'] . '</option>';
         }
     }
     
     echo '<div class="form block" id="registerForm">
     <h1><center>Регистрация</center></h1>
-    <form enctype="multipart/form-data" method="POST" href="" name="myForm" id="myForm">' .
-            '<input type="file" name="avatar" title="Загрузите изображение для аватарки">' . '<br>' .
-            '<input type="text" name="F" title="Введите фамилию" value="' . $post_saver['F'] . '" class="' . $input_error['F'] . '" placeholder="Фамилия"><br>' .
-            '<input type="text" name="I" title="Введите имя" value="' . $post_saver['I'] . '" class="' . $input_error['I'] . '" placeholder="Имя"><br>' .
-            '<input type="text" name="O" title="Введите отчество (при наличии)" value="' . $post_saver['O'] . '" class="' . $input_error['O'] . '" placeholder="Отчество"><br>' .
-            '<input type="date" name="birth" title="Укажите дату рождения" value="' . $post_saver['birth'] . '" class="' . $input_error['birth'] . '"><br>' .
-            '<select name="id_city">' .
-            '<option selected disabled title="Укажите город">Город</option>' .
+    <form enctype="multipart/form-data" method="POST" href="" name="myForm" id="myForm">';
+            echo '<input type="file" name="avatar" title="Загрузите изображение для аватарки">' . '<br>';
+            if ($error_messages['F']) {
+                echo '<div class="error_message">' . $error_messages['F'] . '</div>';
+            }
+            echo '<input type="text" name="F" title="Введите фамилию" value="' . $post_saver['F'] . '" class="' . $input_error['F'] . '" placeholder="Фамилия"><br>';
+            if ($error_messages['I']) {
+                echo '<div class="error_message">' . $error_messages['I'] . '</div>';
+            }
+            echo '<input type="text" name="I" title="Введите имя" value="' . $post_saver['I'] . '" class="' . $input_error['I'] . '" placeholder="Имя"><br>';
+            echo '<input type="text" name="O" title="Введите отчество (при наличии)" value="' . $post_saver['O'] . '" class="' . $input_error['O'] . '" placeholder="Отчество"><br>';
+            if ($error_messages['birth']) {
+                echo '<div class="error_message">' . $error_messages['birth'] . '</div>';
+            }
+            echo '<input type="date" name="birth" title="Укажите дату рождения" value="' . $post_saver['birth'] . '" class="' . $input_error['birth'] . '"><br>';
+            if ($error_messages['id_city']) {
+                echo '<div class="error_message">' . $error_messages['id_city'] . '</div>';
+            }
+            echo '<select name="id_city">' .
+            '<option title="Укажите город">Город</option>' .
                 $select_tag_str .
-            '</select>' . '<br>' .
-            '<input type="email" name="email" title="Введите адрес электронной почты" value="' . $post_saver['email'] . '" class="' . $input_error['email'] . '" placeholder="Email"><br>' .
-            '<input type="text" name="login" title="Введите логин" value="' . $post_saver['login'] . '" class="' . $input_error['login'] . '" placeholder="Логин"><br>' .
-            '<input type="password" name="password" title="Введите пароль" value="' . $post_saver['password'] . '" class="' . $input_error['password'] . '" placeholder="Пароль"><br>' .
-            '<input type="password" name="password_repeated" title="Повторите введенный пороль" value="' . '' . '" class="' . $input_error['password_repeated'] . '" placeholder="Повторите пароль"><br>' .
-            '<input type="submit" name="mySubmit" value="Зарегистрироваться">' .
+            '</select>' . '<br>';
+            if ($error_messages['email']) {
+                echo '<div class="error_message">' . $error_messages['email'] . '</div>';
+            }
+            echo '<input type="email" name="email" title="Введите адрес электронной почты" value="' . $post_saver['email'] . '" class="' . $input_error['email'] . '" placeholder="Email"><br>';
+            if ($error_messages['login']) {
+                echo '<div class="error_message">' . $error_messages['login'] . '</div>';
+            }
+            echo '<input type="text" name="login" title="Введите логин" value="' . $post_saver['login'] . '" class="' . $input_error['login'] . '" placeholder="Логин"><br>';
+            if ($error_messages['password']) {
+                echo '<div class="error_message">' . $error_messages['password'] . '</div>';
+            }
+            echo '<input type="password" name="password" title="Введите пароль" value="' . $post_saver['password'] . '" class="' . $input_error['password'] . '" placeholder="Пароль"><br>';
+            if ($error_messages['password_repeated']) {
+                echo '<div class="error_message">' . $error_messages['password_repeated'] . '</div>';
+            }
+            echo '<input type="password" name="password_repeated" title="Повторите введенный пороль" value="' . '' . '" class="' . $input_error['password_repeated'] . '" placeholder="Повторите пароль"><br>';
+            echo '<input type="submit" name="mySubmit" value="Зарегистрироваться">' .
             
-            '<input type="button" class="toggle-btn" onclick="toggleForms(`loginForm`)" value="Вернуться к авторизации">' .
+            '<input type="button" class="toggle-btn" onclick="toggleForms(`loginForm`)" value="Авторизоваться">' .
         '</form>' . 
         '</div>';
 
         
     echo '</div>';  // закрытие container
     echo "<script>
+        // Читаем сохраненное состояние из localStorage
+        const activeForm = localStorage.getItem('activeForm') || 'loginForm'; // По умолчанию login
+        toggleForms(activeForm);
+
         function toggleForms(formId) {
             document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
             document.getElementById(formId).classList.add('active');
+            // Сохраняем состояние в localStorage
+            localStorage.setItem('activeForm', formId);
         }
     </script>";
 }
