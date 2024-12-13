@@ -151,3 +151,159 @@ body {
 .add-report .submit-button:hover {
     background: #0056b3;
 }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.modal-body {
+    max-height: 70vh; /* Ограничение высоты для тела модального окна */
+    overflow-y: auto; /* Прокрутка при переполнении */
+    padding-right: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 8px; /* Ширина полосы прокрутки */
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #007BFF; /* Цвет полосы прокрутки */
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Цвет полосы при наведении */
+}
+
+.report {
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.add-report textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.add-report .submit-button {
+    padding: 10px 20px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-report .submit-button:hover {
+    background: #0056b3;
+}
+
+.report-text:hover textarea {
+    transition: all 0.3s ease;
+    background-color: #f0f8ff; /* Светло-голубой фон */
+    border-color: #007acc;    /* Синяя рамка */
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.5); /* Легкая подсветка */
+}
+
+.report-text:focus textarea {
+    background-color: #e6f7ff; /* Еще более светлый фон при фокусе */
+    border-color: #005bb5;    /* Темно-синяя рамка */
+    box-shadow: 0 0 8px rgba(0, 91, 181, 0.7); /* Увеличенная подсветка */
+    outline: none;
+}
+
+.report {
+    position: relative; /* Установить родительский блок для абсолютного позиционирования кнопок */
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    transition: box-shadow 0.2s ease;
+}
+.report:hover {
+    transition: all 0.3s ease;
+    background-color: #f0f8ff; /* Светло-голубой фон */
+    border-color: #007acc;    /* Синяя рамка */
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.5); /* Легкая подсветка */
+}
+
+.message_buttons {
+    height: 30px;
+    display: none !important; /* Скрыть кнопки по умолчанию */
+    position: absolute; /* Позволяет позиционировать кнопки */
+    top: 100%; /* Расположить чуть ниже центра */
+    left: 50%; /* Центрировать по горизонтали */
+    transform: translate(-50%, -50%); /* Смещение для точного центрирования */
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    z-index: 999; /* Обеспечивает видимость кнопок над другими элементами */
+}
+
+.report:hover .message_buttons {
+    display: inline-flex !important; /* Показывать кнопки при наведении */
+    gap: 5px; /* Разделить кнопки небольшим отступом */
+}
+
+.delete-button {
+    color: white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ff0000e0 !important;
+    border: none;
+    transition: background 0.3s;
+    padding: 0;
+}
+.delete-button:hover {
+    background: #a50101 !important;
+}

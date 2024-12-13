@@ -181,6 +181,19 @@ img.message_avatar.send_message {
     border: 1px solid #ddd;
 }
 
+.dialog_area::-webkit-scrollbar {
+    width: 8px; /* Ширина полосы прокрутки */
+}
+
+.dialog_area::-webkit-scrollbar-thumb {
+    background: #007BFF; /* Цвет полосы прокрутки */
+    border-radius: 4px;
+}
+
+.dialog_area::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Цвет полосы при наведении */
+}
+
 .message_buttons {
     display: inline-flex;
     gap: 5px;
