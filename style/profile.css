@@ -246,14 +246,14 @@ body {
     background: #0056b3;
 }
 
-.report-text:hover textarea {
+textarea.report-text:hover {
     transition: all 0.3s ease;
     background-color: #f0f8ff; /* Светло-голубой фон */
     border-color: #007acc;    /* Синяя рамка */
     box-shadow: 0 0 5px rgba(0, 122, 204, 0.5); /* Легкая подсветка */
 }
 
-.report-text:focus textarea {
+textarea.report-text:focus {
     background-color: #e6f7ff; /* Еще более светлый фон при фокусе */
     border-color: #005bb5;    /* Темно-синяя рамка */
     box-shadow: 0 0 8px rgba(0, 91, 181, 0.7); /* Увеличенная подсветка */
