@@ -113,10 +113,11 @@ if ($id_from != '') {
         }
         $message_time = explode(' ', $message['creation'])[1];
 
+        $message_sender_avatar = profile_link($current_user['id'], '<img src="' . $img_route . '" class="message_avatar" title="' . $current_user['F'] . ' ' . $current_user['I'] . ' ' . $current_user['O'] . '"/>');
+
         $message_block = $message_block . '<div class="message ' . $message_align_css_class . '">' .
-                    '<p>' . $message['text'] . 
-                    profile_link($current_user['id'], '<img src="' . $img_route . '" class="message_avatar" title="' . $current_user['F'] . ' ' . $current_user['I'] . ' ' . $current_user['O'] . '"/>') . '</p>' .
-                    '<div class="message_buttons">' . ($user_from['id'] == $message['id_from'] ? create_simple_delete_button('deleteMessageSubmit', '', 'x', $message['id']) : '') . '</div>' .
+                    '<p>' . ($message['id_from'] == $user_from['id'] ? $message['text'] . $message_sender_avatar : $message_sender_avatar . $message['text']) . '</p>' .
+                    ($user_from['id'] == $message['id_from'] || $user_from['role'] == $admin_role ? '<div class="message_buttons">' . create_simple_delete_button('deleteMessageSubmit', '', 'x', $message['id']) . '</div>' : '') .
                     '</div>';   // закрытие message
         $message_block = $message_block . '<div class="message_time ' . $message_align_css_class . '"><p>' . $message_time . '</p></div>';
         

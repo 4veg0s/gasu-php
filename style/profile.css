@@ -51,3 +51,20 @@ body {
 .profile-info strong {
     color: #333;
 }
+
+.common-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.common-button:hover {
+    background: #0056b3;
+}
