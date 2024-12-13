@@ -106,9 +106,6 @@ table th {
     font-weight: bold;
 }
 
-table td {
-}
-
 table tr:hover {
     transition: all 0.3s ease;
     background-color: #f0f8ff; /* Светло-голубой фон */

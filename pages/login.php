@@ -86,7 +86,7 @@ if ($_SESSION['id_user'] != '') {
                     '<td>' . $map_link . '</td>' . 
                     '<td>' . $current_user_info['status'] . '</td>' . 
                     '<td>' . $current_user_info['role'] . '</td>' . 
-                    '<td>' . profile_link($current_user_info['id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
+                    '<td>' . profile_link($current_user_info['user_id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
                 '</tr>';
         echo '</table>
         </div>';

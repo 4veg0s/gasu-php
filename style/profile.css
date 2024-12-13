@@ -1,3 +1,4 @@
+/* Общие стили */
 * {
     margin: 0;
     padding: 0;
@@ -10,30 +11,39 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f9;
+    margin: 0;
+    background: linear-gradient(to right, #74eba8, #acb6e5);
 }
 
 .profile-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     padding: 20px;
-    width: 80%;
+    width: 90%;
     max-width: 600px;
 }
 
 .profile-image img {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 20px;
+    margin-bottom: 20px;
+
+    transition: border-radius 0.3s;
+}
+
+.profile-image img:hover {
+    border-radius: 10px;
 }
 
 .profile-info {
-    flex: 1;
+    text-align: center;
+    width: 100%;
 }
 
 .profile-info h1 {
@@ -63,8 +73,10 @@ body {
     text-decoration: none;
     cursor: pointer;
     border-radius: 5px;
+    border: none;
     transition: background 0.3s;
 }
+
 .common-button:hover {
     background: #0056b3;
 }
