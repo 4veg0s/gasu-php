@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login1'])) {
 if ($_SESSION['id_user'] != '') {
     $id_user = $_SESSION['id_user'];
     $sql_select_user = 'SELECT 
-    user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, user.status, user.role
+    user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, city.name, city.lng, city.lat, user.status, user.role
     FROM user
         left join city on user.id_city = city.id
         having user_id = ' . $id_user;
@@ -56,6 +56,7 @@ if ($_SESSION['id_user'] != '') {
             $img_file = $placeholder_image_name;
         }
         $img_route = $appserv_route_dir . '/' . $img_file;
+        $map_link = '<a href="https://yandex.ru/maps/?ll=' . $user_info['lng'] . ',' . $user_info['lat'] . '&z=10" target="_blank">' . $user_info['name'] . '</a>';
 
         echo '<div class="userdata_block">
                 <table border=1>' . 
@@ -82,7 +83,7 @@ if ($_SESSION['id_user'] != '') {
                     '<td>' . $user_info['login'] . '</td>' . 
                     // '<td>' . $user_info['password'] . '</td>' . 
                     '<td>' . $user_info['registration'] . '</td>' . 
-                    '<td>' . $user_info['name'] . '</td>' . 
+                    '<td>' . $map_link . '</td>' . 
                     '<td>' . $user_info['status'] . '</td>' . 
                     '<td>' . $user_info['role'] . '</td>' . 
                     '<td>' . profile_link($user_info['id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 

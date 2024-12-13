@@ -101,7 +101,7 @@ if ($logged_in == 1) {
     // echo '<div class="container">';  // открывается в login.php
 
     $sql = 'SELECT 
-    user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, user.status, user.role
+    user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, city.lng, city.lat, user.status, user.role
     FROM user
         left join city on user.id_city = city.id';
 
@@ -141,6 +141,7 @@ if ($logged_in == 1) {
             $img_route = $appserv_route_dir . '/' . $img_file;
             $profile_link = profile_link($row['user_id'], 'Профиль');
             $chat_link = chat_link($row['user_id'], 'Написать');
+            $map_link = '<a href="https://yandex.ru/maps/?ll=' . $row['lng'] . ',' . $row['lat'] . '&z=10" target="_blank">' . $row['name'] . '</a>';
             // echo '<pre>';
             // echo print_r($row);
             // echo '</pre>';
@@ -153,7 +154,7 @@ if ($logged_in == 1) {
                     '<td>' . $row['login'] . '</td>' . 
                     //'<td>' . $row['password'] . '</td>' . 
                     '<td>' . $row['registration'] . '</td>' . 
-                    '<td>' . '<a href="https://yandex.ru/maps/?ll=' . $row['lng'] . ',' . $row['lat'] . '&z=10" target="_blank">' . $row['name'] . '</a>' . '</td>' . 
+                    '<td>' . $map_link . '</td>' . 
                     '<td>' . $row['status'] . '</td>' . 
                     '<td>' . $row['role'] . '</td>' . 
                     '<td>' . profile_link($row['user_id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
