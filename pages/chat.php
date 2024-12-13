@@ -16,8 +16,6 @@ echo '<link rel="stylesheet" href="../style/chat.css"/>';
 
 $id_from = $_SESSION['id_user'];
 if ($id_from != '') {
-    echo create_link_button('../pages/welcome.php', 'На главную');
-
     // echo '<pre>';
     // echo print_r($_GET);
     // echo '</pre>';
@@ -30,6 +28,16 @@ if ($id_from != '') {
     $user_to = $conn->query($sql_user_to)->fetch_assoc();
     $user_from = $conn->query($sql_user_from)->fetch_assoc();
 
+    $sql_delete_message_by_id = '';
+    if (isset($_POST['deleteMessageSubmit'])) {
+        $message_id_to_delete = $_POST['hidden-delete-id'];
+        $sql_delete_message_by_id = 'DELETE FROM `message` where `id` = ' . $message_id_to_delete;
+
+        $conn->query($sql_delete_message_by_id);
+
+        header("Location: " . $_SERVER['PHP_SELF'] . '?id_to=' . $id_to);
+        // exit();
+    }
     if (isset($_POST['sendMessage'])) {
         if ($_POST['message'] != '') {
             $str = 'INSERT INTO message (
@@ -43,6 +51,9 @@ if ($id_from != '') {
             ')';
             
             $conn->query($str);
+
+            header("Location: " . $_SERVER['PHP_SELF'] . '?id_to=' . $id_to);
+            // exit();
         }
     }
 
@@ -66,7 +77,9 @@ if ($id_from != '') {
         }
     }
 
-    echo '<h2>Диалог с пользователем ' . $user_to['F'] . ' ' . $user_to['I'] . ' ' . $user_to['O'] . '</h2>';
+    echo '<div class="container">';
+
+    echo '<h2><center>Диалог с пользователем ' . $user_to['F'] . ' ' . $user_to['I'] . ' ' . $user_to['O'] . '</center></h2>';
     echo '<div class="dialog_block">';
     echo '<div class="dialog_header">' .
         '</div>';
@@ -103,7 +116,8 @@ if ($id_from != '') {
         $message_block = $message_block . '<div class="message ' . $message_align_css_class . '">' .
                     '<p>' . $message['text'] . 
                     profile_link($current_user['id'], '<img src="' . $img_route . '" class="message_avatar" title="' . $current_user['F'] . ' ' . $current_user['I'] . ' ' . $current_user['O'] . '"/>') . '</p>' .
-                    '</div>';
+                    '<div class="message_buttons">' . ($user_from['id'] == $message['id_from'] ? create_simple_delete_button('deleteMessageSubmit', '', 'x', $message['id']) : '') . '</div>' .
+                    '</div>';   // закрытие message
         $message_block = $message_block . '<div class="message_time ' . $message_align_css_class . '"><p>' . $message_time . '</p></div>';
         
         $messages_blocks = $messages_blocks . $message_block;
@@ -127,12 +141,24 @@ if ($id_from != '') {
     <form method="POST" action="" name="myForm" id="myForm">' .
         '<textarea name="message" class="sendMessageArea" title="Ваше сообщение" placeholder="Введите сообщение"></textarea><br>' .
         '<input type="submit" name="sendMessage" class="sendMessageButton" value="Отправить">' .
-        profile_link($user_from['id'], '<img src="' . $img_route . '" class="message_avatar" title="' . $user_from['F'] . ' ' . $user_from['I'] . ' ' . $user_from['O'] . '"/>') .
+        profile_link($user_from['id'], '<img src="' . $img_route . '" class="message_avatar send_message" title="' . $user_from['F'] . ' ' . $user_from['I'] . ' ' . $user_from['O'] . '"/>') .
     '</form>
     </div>';
     echo '</div>';  // конец dialog_block
+
+    echo '<div class="bottom-block">' . create_link_button('../pages/welcome.php', 'На главную') . '</div>';
+
+    echo '</div>';  // конец container
 }
 
+
 // todo: называть картинку при отправке в чате md5(user_from . user_to . message['creation'])
+
+echo "<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const dialogArea = document.querySelector('.dialog_area');
+    dialogArea.scrollTop = dialogArea.scrollHeight;
+});
+</script>"
 
 ?>

@@ -255,11 +255,6 @@ if ($logged_in == 1) {
             // Сохраняем состояние в localStorage
             localStorage.setItem('activeForm', formId);
         }
-        document.getElementById('form_deleteUserSubmit').addEventListener('submit', function (event) {
-            alert('Пользователь удален');
-            // Чтобы форма не отправлялась, можно использовать:
-            // event.preventDefault();
-        });
     </script>";
 }
 

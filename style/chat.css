@@ -1,20 +1,109 @@
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin: 0;
+    /* margin-top: calc(env(safe-area-inset-top) + 10px); */
+    background: linear-gradient(to right, #74eba8, #acb6e5);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    scroll-padding-top: 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 0px 20px;
+}
+
 img.message_avatar {
-    width: 20px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
-    margin-top: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+}
+
+img.message_avatar.send_message {
+    width: 20px;
+    height: 20px;
+    margin-left: 0px;
 }
 
 .dialog_block {
-    width: 500px;
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
     border: 2px solid black;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message p {
+    /* word-wrap: break-word; Перенос длинных слов */
+    word-break: break-word; /* Для предотвращения выхода текста за границы */
+    white-space: normal; /* Позволяет переносить текст на следующую строку */
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: space-between;
+}
+
+.message {
+    position: relative; /* Установить родительский блок для абсолютного позиционирования кнопок */
+    padding: 3px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+.message:hover {
+    background-color: rgba(84, 124, 255, 0.1);
+}
+
+.message_buttons {
+    height: 20px;
+    display: none !important; /* Скрыть кнопки по умолчанию */
+    position: absolute; /* Позволяет позиционировать кнопки */
+    top: 100%; /* Расположить чуть ниже центра */
+    left: 50%; /* Центрировать по горизонтали */
+    transform: translate(-50%, -50%); /* Смещение для точного центрирования */
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 5px;
+    z-index: 999; /* Обеспечивает видимость кнопок над другими элементами */
 }
 
-.message p{
-    margin-bottom: 0px;
+.message:hover .message_buttons {
+    display: inline-flex !important; /* Показывать кнопки при наведении */
+    gap: 5px; /* Разделить кнопки небольшим отступом */
 }
 
-.sender p{
+.delete-button {
+    width: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ff0000e0 !important;
+    transition: background 0.3s;
+}
+.delete-button:hover {
+    background: #a50101 !important;
+}
+
+.sender p {
     text-align: right;
 }
 
@@ -22,22 +111,100 @@ img.message_avatar {
     text-align: left;
 }
 
-.message_time p{
+.message_time p {
     font-size: 12px;
-    margin-top: 0px;
+    color: #888;
+    margin-top: 2px;
+    text-align: right;
 }
 
-.chat_date, .message_time {
+.chat_date {
     text-align: center;
     color: gray;
+    font-size: 14px;
+    margin: 10px 0;
 }
-
 
 .sendMessageArea {
-    width: 100%;
+    width: calc(100% - 20px);
     height: 60px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
 }
 
-.sendMessageButton {
+.sendMessageButton, .common-button {
     width: calc(100% - 20px);
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sendMessageButton:hover, .common-button:hover {
+    background-color: #0056b3;
+}
+
+.common-button {
+    width: 100%;
+}
+
+.dialog_area {
+    max-height: 400px;
+    min-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.message_buttons {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.message_buttons button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.message_buttons button:hover {
+    text-decoration: underline;
+}
+
+.file_preview {
+    margin-top: 10px;
+}
+
+.file_preview img, .file_preview video {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 5px auto;
+}
+
+.file_preview a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.file_preview a:hover {
+    text-decoration: underline;
+}
+
+.dialog_block, .bottom-block {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
 }

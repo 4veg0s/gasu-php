@@ -110,6 +110,7 @@ table th {
     border-radius: 50%;
     border: #0056b3 solid 2px;
     object-fit: cover;
+    transition: box-shadow 0.2s ease;
 }
 
 .scroll-container {
