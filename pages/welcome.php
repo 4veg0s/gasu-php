@@ -32,9 +32,9 @@ if (isset($_POST['deleteUserSubmit'])) {
     $conn->query($sql_delete_user_by_id);
 
     header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
+    // exit();
 }
-if (isset($_POST['mySubmit'])) {
+if (isset($_POST['submitRegister'])) {
     $input_errors = [];
     $error_messages = [];
     $post_saver = $_POST;
@@ -101,6 +101,9 @@ if (isset($_POST['mySubmit'])) {
         //echo $str;   // DEBUG
         $conn->query($str);
         $post_saver = '';
+        echo '<script type="text/JavaScript">  
+            alert("Регистрация прошла успешно"); 
+        </script>' ; 
     } else {
         //echo $err;
     }
@@ -194,7 +197,7 @@ if ($logged_in == 1) {
 
     echo '<div class="form block" id="registerForm">
     <h1><center>Регистрация</center></h1>
-    <form enctype="multipart/form-data" method="POST" href="" name="myForm" id="myForm">';
+    <form enctype="multipart/form-data" method="POST" href="" name="myRegisterForm" id="myRegisterForm">';
             echo '<input type="file" name="avatar" title="Загрузите изображение для аватарки">' . '<br>';
             if ($error_messages['F']) {
                 echo '<div class="error_message">' . $error_messages['F'] . '</div>';
@@ -232,7 +235,7 @@ if ($logged_in == 1) {
                 echo '<div class="error_message">' . $error_messages['password_repeated'] . '</div>';
             }
             echo '<input type="password" name="password_repeated" title="Повторите введенный пороль" value="' . '' . '" class="' . $input_errors['password_repeated'] . '" placeholder="Повторите пароль"><br>';
-            echo '<input type="submit" name="mySubmit" value="Зарегистрироваться">' .
+            echo '<input type="submit" name="submitRegister" value="Зарегистрироваться">' .
             
             '<input type="button" class="toggle-btn" onclick="toggleForms(`loginForm`)" value="Авторизоваться">' .
         '</form>' . 
@@ -241,7 +244,7 @@ if ($logged_in == 1) {
         echo '</div>';  // закрытие container log-reg
 
         
-    echo `<script>
+    echo "<script>
         // Читаем сохраненное состояние из localStorage
         const activeForm = localStorage.getItem('activeForm') || 'loginForm'; // По умолчанию login
         toggleForms(activeForm);
@@ -252,11 +255,12 @@ if ($logged_in == 1) {
             // Сохраняем состояние в localStorage
             localStorage.setItem('activeForm', formId);
         }
-
-        function deleteAlert() {
-            alert("Пользователь удален");
-        }
-    </script>`;
+        document.getElementById('form_deleteUserSubmit').addEventListener('submit', function (event) {
+            alert('Пользователь удален');
+            // Чтобы форма не отправлялась, можно использовать:
+            // event.preventDefault();
+        });
+    </script>";
 }
 
 // закрытие подключения

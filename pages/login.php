@@ -100,7 +100,7 @@ if ($logged_in != 1) {
 
     echo '<div class="form login_block active" id="loginForm">
     <h1><center>Вход</center></h1>
-    <form method="POST" action="/atkachev/pages/welcome.php" name="myForm" id="myForm">';
+    <form method="POST" action="/atkachev/pages/welcome.php" name="myLoginForm" id="myLoginForm">';
     if ($error_message) {
         echo '<div class="error_message">' . $error_message . '</div>';
     }

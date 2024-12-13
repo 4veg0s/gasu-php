@@ -38,9 +38,9 @@ function create_simple_post_button($button_name, $action, $value) {
 }
 
 function create_simple_delete_button($button_name, $action, $button_caption, $object_id_to_delete) {
-    return '<form method="POST" action="' . $action . '" name="form_' . $button_name . '">' .
+    return '<form method="POST" action="' . $action . '" name="form_' . $button_name . '" onsubmit="return confirm(`Удалить пользователя?`);">' .
     '<input type="hidden" id="hidden-delete-id" name="hidden-delete-id" value="' . $object_id_to_delete . '">' .
-    '<input type="submit" name="' . $button_name . '" onclick="deleteAlert()" class="delete-button" value="' . $button_caption . '">' .
+    '<input type="submit" name="' . $button_name . '" id="' . $button_name . '" onclick="deleteAlert()" class="delete-button" value="' . $button_caption . '">' .
     '</form>';
 }
 
