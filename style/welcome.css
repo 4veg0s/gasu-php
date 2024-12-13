@@ -72,8 +72,15 @@ input[type="submit"]:hover {
     border-radius: 5px;
     transition: background 0.3s;
 }
-.toggle-btn:hover, .common-button {
+.toggle-btn:hover, .common-button:hover {
     background: #0056b3;
+}
+
+.delete-button {
+    background: #ff0000e0 !important;
+}
+.delete-button:hover {
+    background: #a50101 !important;
 }
 
 .userdata_block, .table_block {
@@ -91,6 +98,7 @@ table th, table td {
     padding: 10px;
     text-align: center;
     border: 1px solid #ddd;
+    /* word-wrap: break-word; Перенос текста в ячейках */
 }
 table th {
     background-color: #f4f4f4;
@@ -102,6 +110,13 @@ table th {
     border-radius: 50%;
     border: #0056b3 solid 2px;
     object-fit: cover;
+}
+
+.scroll-container {
+    max-width: 100%; /* Контейнер занимает всю доступную ширину */
+    overflow-x: auto; /* Включает горизонтальную прокрутку */
+    overflow-y: hidden; /* Отключает вертикальную прокрутку */
+    white-space: nowrap; /* Предотвращает перенос строк внутри контейнера */
 }
 
 .table_img:hover {

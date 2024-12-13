@@ -37,6 +37,13 @@ function create_simple_post_button($button_name, $action, $value) {
     '</form>';
 }
 
+function create_simple_delete_button($button_name, $action, $button_caption, $object_id_to_delete) {
+    return '<form method="POST" action="' . $action . '" name="form_' . $button_name . '">' .
+    '<input type="hidden" id="hidden-delete-id" name="hidden-delete-id" value="' . $object_id_to_delete . '">' .
+    '<input type="submit" name="' . $button_name . '" onclick="deleteAlert()" class="delete-button" value="' . $button_caption . '">' .
+    '</form>';
+}
+
 function create_link_button($link, $button_caption) {
     return '<a href="' . $link . '">' .
     '<input type="button" value="' . $button_caption . '" class="common-button">' .

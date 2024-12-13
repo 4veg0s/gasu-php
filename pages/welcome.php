@@ -24,7 +24,16 @@ if ($_GET['id_to'] != '') {
 // echo '<pre>';
 // echo print_r($_FILES['avatar']);
 // echo '</pre>';
+$sql_delete_user_by_id = '';
+if (isset($_POST['deleteUserSubmit'])) {
+    $user_id_to_delete = $_POST['hidden-delete-id'];
+    $sql_delete_user_by_id = 'DELETE FROM `user` where `id` = ' . $user_id_to_delete;
 
+    $conn->query($sql_delete_user_by_id);
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 if (isset($_POST['mySubmit'])) {
     $input_errors = [];
     $error_messages = [];
@@ -99,7 +108,6 @@ if (isset($_POST['mySubmit'])) {
 
 if ($logged_in == 1) {
     // echo '<div class="container">';  // открывается в login.php
-
     $sql = 'SELECT 
     user.id as user_id, user.F, user.I, user.O, user.email, user.birth, user.login, user.password, user.registration, city.id as city_id, city.name, city.lng, city.lat, user.status, user.role
     FROM user
@@ -109,7 +117,7 @@ if ($logged_in == 1) {
     // проверка наличия результатов и вывод данных
     if ($result->num_rows > 0) {
         // вывод заголовка таблицы
-        echo '<div class="table_block">
+        echo '<div class="table_block scroll-container">
                 <table border=1>';
         echo '<tr>' .
                 '<th>Фамилия</th>' .
@@ -125,6 +133,7 @@ if ($logged_in == 1) {
                 '<th>Роль</th>' .
                 '<th>Аватар</th>' .
                 '<th>Чат</th>' .
+                ($current_user_info['role'] == $admin_role ? '<th>Действие</th>' : '') .
             '</tr>';
         // вывод данных каждой строки
         while ($row = $result->fetch_assoc()) {
@@ -159,6 +168,7 @@ if ($logged_in == 1) {
                     '<td>' . $row['role'] . '</td>' . 
                     '<td>' . profile_link($row['user_id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
                     '<td>' . $chat_link . '</td>' . 
+                    ($current_user_info['role'] == $admin_role && $row['role'] != $admin_role ? '<td>' . create_simple_delete_button('deleteUserSubmit', '', 'Удалить', $row['user_id']) . '</td>' : '') .
                 '</tr>';
         }
         echo '</table>
@@ -231,7 +241,7 @@ if ($logged_in == 1) {
         echo '</div>';  // закрытие container log-reg
 
         
-    echo "<script>
+    echo `<script>
         // Читаем сохраненное состояние из localStorage
         const activeForm = localStorage.getItem('activeForm') || 'loginForm'; // По умолчанию login
         toggleForms(activeForm);
@@ -242,7 +252,11 @@ if ($logged_in == 1) {
             // Сохраняем состояние в localStorage
             localStorage.setItem('activeForm', formId);
         }
-    </script>";
+
+        function deleteAlert() {
+            alert("Пользователь удален");
+        }
+    </script>`;
 }
 
 // закрытие подключения

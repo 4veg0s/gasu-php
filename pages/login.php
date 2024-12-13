@@ -39,8 +39,8 @@ if ($_SESSION['id_user'] != '') {
         left join city on user.id_city = city.id
         having user_id = ' . $id_user;
         // "SELECT * FROM user WHERE id = '" . $id_user . "'";
-    $user_info = $conn->query($sql_select_user)->fetch_assoc();
-    if ($user_info == '') {
+    $current_user_info = $conn->query($sql_select_user)->fetch_assoc();
+    if ($current_user_info == '') {
         echo 'Ошибка';
     } else {
         echo '<div class="container">'; // закрывается в welcome.php
@@ -48,7 +48,7 @@ if ($_SESSION['id_user'] != '') {
         $files = scandir($file_destination_path);
         $img_file = '';
         foreach ($files as $file) {
-            if (strpos($file, $user_info['login']) !== false) {
+            if (strpos($file, $current_user_info['login']) !== false) {
                 $img_file = $file;
             }
         }
@@ -56,9 +56,9 @@ if ($_SESSION['id_user'] != '') {
             $img_file = $placeholder_image_name;
         }
         $img_route = $appserv_route_dir . '/' . $img_file;
-        $map_link = '<a href="https://yandex.ru/maps/?ll=' . $user_info['lng'] . ',' . $user_info['lat'] . '&z=10" target="_blank">' . $user_info['name'] . '</a>';
+        $map_link = '<a href="https://yandex.ru/maps/?ll=' . $current_user_info['lng'] . ',' . $current_user_info['lat'] . '&z=10" target="_blank">' . $current_user_info['name'] . '</a>';
 
-        echo '<div class="userdata_block">
+        echo '<div class="userdata_block scroll-container">
                 <table border=1>' . 
                     '<tr>' .
                         '<th>Фамилия</th>' .
@@ -75,18 +75,18 @@ if ($_SESSION['id_user'] != '') {
                         '<th>Аватар</th>' .
                     '</tr>';
         echo '<tr>' .
-                    '<td>' . $user_info['F'] . '</td>' . 
-                    '<td>' . $user_info['I'] . '</td>' . 
-                    '<td>' . $user_info['O'] . '</td>' . 
-                    '<td>' . $user_info['email'] . '</td>' . 
-                    '<td>' . $user_info['birth'] . '</td>' . 
-                    '<td>' . $user_info['login'] . '</td>' . 
-                    // '<td>' . $user_info['password'] . '</td>' . 
-                    '<td>' . $user_info['registration'] . '</td>' . 
+                    '<td>' . $current_user_info['F'] . '</td>' . 
+                    '<td>' . $current_user_info['I'] . '</td>' . 
+                    '<td>' . $current_user_info['O'] . '</td>' . 
+                    '<td>' . $current_user_info['email'] . '</td>' . 
+                    '<td>' . $current_user_info['birth'] . '</td>' . 
+                    '<td>' . $current_user_info['login'] . '</td>' . 
+                    // '<td>' . $current_user_info['password'] . '</td>' . 
+                    '<td>' . $current_user_info['registration'] . '</td>' . 
                     '<td>' . $map_link . '</td>' . 
-                    '<td>' . $user_info['status'] . '</td>' . 
-                    '<td>' . $user_info['role'] . '</td>' . 
-                    '<td>' . profile_link($user_info['id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
+                    '<td>' . $current_user_info['status'] . '</td>' . 
+                    '<td>' . $current_user_info['role'] . '</td>' . 
+                    '<td>' . profile_link($current_user_info['id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
                 '</tr>';
         echo '</table>
         </div>';
