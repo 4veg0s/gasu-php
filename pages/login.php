@@ -11,7 +11,7 @@ if ($_SESSION['id_user'] != '') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['login1']) && isset($_POST['password'])) {
+    if (isset($_POST['login1']) && isset($_POST['password1'])) {
         $login_post_saver = $_POST;
         $sql_select_user_by_login_and_password = "select * from user where login = '" . $_POST['login1'] . "' and password = '" . md5($_POST['password1']) . "'";
         $result = $conn->query($sql_select_user_by_login_and_password)->fetch_assoc();
