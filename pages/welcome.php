@@ -69,6 +69,11 @@ if (isset($_POST['submitRegister'])) {
         $error_messages['password'] = 'Не введен пароль';
         $input_errors['password'] = $input_error_class;
     }
+    if (strlen($_POST['password']) < 3) {
+        $err = $err . 'Не введен пароль<br>';
+        $error_messages['password'] = 'Не введен пароль';
+        $input_errors['password'] = $input_error_class;
+    }
     if ($_POST['id_city'] == '' || $_POST['id_city'] == 'Город') {
         $err = $err . 'Не введен город<br>';
         $error_messages['id_city'] = 'Не выбран город';
