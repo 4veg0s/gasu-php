@@ -121,12 +121,12 @@ img.message_avatar.send_message {
 }
 
 /* .sender p {
-    text-align: right;
-}
+    
+} */
 
 .receiver p {
-    text-align: left;
-} */
+    justify-content: left;
+}
 
 .message_time p {
     font-size: 12px;
