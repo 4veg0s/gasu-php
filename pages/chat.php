@@ -79,7 +79,7 @@ if ($id_from != '') {
 
     echo '<div class="container">';
 
-    echo '<h2><center>Диалог с пользователем ' . $user_to['F'] . ' ' . $user_to['I'] . ' ' . $user_to['O'] . '</center></h2>';
+    echo '<h2><center>Диалог с пользователем ' . profile_link($user_to['id'], $user_to['F'] . ' ' . $user_to['I'] . ' ' . $user_to['O']) . '</center></h2>';
     echo '<div class="dialog_block">';
     echo '<div class="dialog_header">' .
         '</div>';
