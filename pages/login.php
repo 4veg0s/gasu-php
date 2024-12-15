@@ -10,24 +10,29 @@ if ($_SESSION['id_user'] != '') {
     $logged_in = 1;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login1'])) {
-    $login_post_saver = $_POST;
-    $sql_select_user_by_login_and_password = "select * from user where login = '" . $_POST['login1'] . "' and password = '" . md5($_POST['password1']) . "'";
-    $result = $conn->query($sql_select_user_by_login_and_password)->fetch_assoc();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['login1']) && isset($_POST['password'])) {
+        $login_post_saver = $_POST;
+        $sql_select_user_by_login_and_password = "select * from user where login = '" . $_POST['login1'] . "' and password = '" . md5($_POST['password1']) . "'";
+        $result = $conn->query($sql_select_user_by_login_and_password)->fetch_assoc();
 
-    $input_error = '';
-    $error_message = '';
-    if ($result == '' || $result['password'] != md5($_POST['password1'])) {
-        $error_message = 'Неверный логин или пароль';
-        $input_error = $input_error_class;
+        $input_error = '';
+        $error_message = '';
+        if ($result == '' || $result['password'] != md5($_POST['password1'])) {
+            $error_message = 'Неверный логин или пароль';
+            $input_error = $input_error_class;
+        } else {
+            $_SESSION['id_user'] = $result['id'];
+            // echo 'Вы вошли как ' . $result['F'] . ' ' . $result['I'] . '<br><br>';
+            $logged_in = 1;
+
+            // Выполнить редирект после успешного логина
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit();
+        }
     } else {
-        $_SESSION['id_user'] = $result['id'];
-        // echo 'Вы вошли как ' . $result['F'] . ' ' . $result['I'] . '<br><br>';
-        $logged_in = 1;
-
-        // Выполнить редирект после успешного логина
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
+        $error_message = 'Введите логин и пароль';
+        $input_error = $input_error_class;
     }
 }
 
