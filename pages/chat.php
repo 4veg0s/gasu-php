@@ -10,6 +10,10 @@ session_start();
 
 echo '<link rel="stylesheet" href="../style/chat.css"/>';
 
+echo '<head>
+        <title>Диалог</title>
+    </head>';
+
 // echo '<pre>';
 // echo print_r($_POST);
 // echo '</pre>';

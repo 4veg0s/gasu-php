@@ -10,6 +10,10 @@ require('../util/functions.php');
 // Начало вывода верстки ====================================
 echo '<link rel="stylesheet" href="../style/welcome.css"/>';
 
+echo '<head>
+        <title>Главная</title>
+    </head>';
+
 $input_error_class = 'input_error';     // класс ошибки ввода для подсветки красным
 
 require('../pages/login.php');

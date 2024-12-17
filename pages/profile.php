@@ -13,6 +13,10 @@ session_start();
 // Начало вывода верстки ====================================
 echo '<link rel="stylesheet" href="../style/profile.css"/>';
 
+echo '<head>
+        <title>Профиль</title>
+    </head>';
+
 $user_id = $_GET['user_id'];
 
 $id_from = $_SESSION['id_user'];
