@@ -176,7 +176,7 @@ if ($logged_in == 1) {
                     '<td>' . $row['role'] . '</td>' . 
                     '<td>' . profile_link($row['user_id'], '<img src="' . $img_route . '" class="table_img"/>') . '</td>' . 
                     '<td>' . $chat_link . '</td>' . 
-                    '<td>' . ($current_user_info['role'] == $admin_role && $row['role'] != $admin_role ? create_simple_delete_button('deleteUserSubmit', '', 'Удалить', $row['user_id']) : 'Админ') . '</td>' .
+                    ($current_user_info['role'] == $admin_role ? '<td>' . ($row['role'] != $admin_role ? create_simple_delete_button('deleteUserSubmit', '', 'Удалить', $row['user_id']) : 'Админ') . '</td>' : '') .
                 '</tr>';
         }
         echo '</table>
